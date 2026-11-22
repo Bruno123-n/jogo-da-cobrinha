@@ -1,0 +1,259 @@
+.containerPai {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #111, #252525);
+}
+
+.msgJogoFinalizado {
+  width: min(90vw, 360px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background: #171717;
+  padding: clamp(16px, 4vw, 30px);
+  border-radius: 16px;
+
+  border: 1px solid #39ff88;
+  box-shadow: 0 0 15px #39ff8840;
+  color: #39ff88;
+  text-align: center;
+
+  animation: aparecer 1s ease-out;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.msgJogoFinalizado p {
+  margin-bottom: 40px;
+}
+
+.msgJogoFinalizado h3 {
+  font-size: clamp(22px, 5vw, 30px);
+  text-shadow:
+    0 0 10px green,
+    0 0 5px rgba(0, 128, 0, 0.829),
+    0 0 20px limegreen;
+}
+
+.reiniciar {
+  background-color: #39ff88;
+  color: #171717;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  transform: scale(1);
+}
+
+.reiniciar:hover {
+  background-color: #39ff8883;
+  transform: scale(1.05);
+  box-shadow: 0 0 3px green;
+}
+
+.areaCelulas {
+  background-color: #171717;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+
+  width: min(500px, 90vw, 80vh);
+  margin: 16px auto;
+}
+
+.celulas {
+  background-color: #292929;
+  border: none;
+  aspect-ratio: 1;
+  transition:
+    background-color 0.3s,
+    border-radius 0.3s,
+    box-shadow 0.3s;
+}
+
+.inicio {
+  background-color: #39ff88;
+  border-radius: 10px;
+  box-shadow: 0 0 10px green;
+}
+
+.corpo {
+  background-color: green;
+  border-radius: 10px;
+  box-shadow: 0 0 7px green;
+}
+
+.comida {
+  background-color: red;
+  border-radius: 50%;
+  box-shadow: 0 0 12px red;
+}
+
+.controles {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  justify-content: center;
+  gap: 10px;
+
+  grid-template-areas:
+    ". cima ."
+    "esquerda baixo direita";
+
+  .cima {
+    grid-area: cima;
+  }
+
+  .esquerda {
+    grid-area: esquerda;
+  }
+
+  .baixo {
+    grid-area: baixo;
+  }
+
+  .direita {
+    grid-area: direita;
+  }
+}
+
+.controle {
+  width: clamp(40px, 12vw, 56px);
+  aspect-ratio: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #292929;
+  color: #39ff88;
+
+  border: 1px solid #444;
+  border-radius: 12px;
+
+  font-size: 24px;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.controle:hover {
+  background-color: #353535;
+  border-color: #39ff88;
+  box-shadow: 0 0 12px #39ff8840;
+  transform: translateY(-2px);
+}
+
+.controle:active {
+  background-color: #39ff88;
+  color: #171717;
+  transform: scale(0.95) translateY(2px);
+}
+
+.controle:focus-visible {
+  outline: 2px solid #39ff88;
+  outline-offset: 4px;
+}
+
+@media (max-width: 480px) {
+  .containerPai {
+    gap: 4px;
+    justify-content: flex-start;
+    padding: 4px 0;
+  }
+
+  .areaCelulas {
+    margin: 0 auto;
+  }
+
+  .celulas {
+    aspect-ratio: 1.15 / 1;
+  }
+
+  .controles {
+    grid-template-columns: repeat(3, 36px);
+    gap: 6px;
+  }
+
+  .controle {
+    width: 36px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .containerPai {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    box-sizing: border-box;
+  }
+
+  .areaCelulas {
+    width: min(500px, calc(100vw - 180px), 75vh);
+    margin: 0;
+  }
+
+  .celulas {
+    aspect-ratio: 1;
+  }
+
+  .painel-de-controle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .controles {
+    grid-template-columns: repeat(3, 40px);
+    gap: 8px;
+  }
+
+  .controle {
+    width: 40px;
+  }
+}
+@media (min-width: 768px) {
+  .areaCelulas {
+    width: min(500px, 90vw, 80vh);
+  }
+
+  .containerPai {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    padding: 30px 60px;
+  }
+
+  .painel-de-controle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+}
