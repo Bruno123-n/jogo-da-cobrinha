@@ -179,13 +179,16 @@
 
 @media (max-width: 480px) {
   .containerPai {
-    gap: 4px;
+    gap: 16px;
     justify-content: flex-start;
-    padding: 4px 0;
+    padding: 28px 12px 32px;
+    min-height: 100svh;
   }
 
   .areaCelulas {
+    width: min(560px, 94vw, 80svh);
     margin: 0 auto;
+    touch-action: none;
   }
 
   .celulas {
@@ -193,12 +196,13 @@
   }
 
   .controles {
-    grid-template-columns: repeat(3, 36px);
-    gap: 6px;
+    grid-template-columns: repeat(3, 52px);
+    gap: 10px;
+    touch-action: none;
   }
 
   .controle {
-    width: 36px;
+    width: 52px;
   }
 }
 
