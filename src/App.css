@@ -195,14 +195,28 @@
     aspect-ratio: 1.15 / 1;
   }
 
+  .painel-de-controle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .pontuacao {
+    display: flex;
+    font-size: 26px;
+    font-weight: bolder;
+    justify-content: center;
+  }
+
   .controles {
-    grid-template-columns: repeat(3, 52px);
-    gap: 10px;
+    grid-template-columns: repeat(3, 67px);
+    gap: 12px;
     touch-action: none;
   }
 
   .controle {
-    width: 52px;
+    width: 67px;
   }
 }
 

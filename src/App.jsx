@@ -266,7 +266,7 @@ export default function JogoDaCobrinha() {
         })}
       </div>
       <div className="painel-de-controle">
-        <div>Pontuação: {pontuacao}</div>{" "}
+        <div className="pontuacao">Pontuação: {pontuacao}</div>{" "}
         <div className="controles">
           <button
             className="esquerda controle"
