@@ -5,10 +5,10 @@ export default function JogoDaCobrinha() {
   const [celulas, setCelulas] = useState(Array(100).fill(0));
   const [posicaoCobra, setPosicaoCobra] = useState(44);
   const [direcao, setDirecao] = useState("direita");
-  const [posicaoComida, setPosicaoComida] = useState(() =>
-    Math.floor(Math.random() * 100),
-  );
   const [corpoCobra, setCorpoCobra] = useState([44, 43, 42]);
+  const [posicaoComida, setPosicaoComida] = useState(() =>
+    gerarPosicaoComida(),
+  );
   const [jogoFinalizado, setJogoFinalizado] = useState(false);
   const [pontuacao, setPontuacao] = useState(0);
   const [aceleracao, setAceleracao] = useState(0);
@@ -27,6 +27,10 @@ export default function JogoDaCobrinha() {
     if (jogoFinalizado) return;
     function controlarTeclado(event) {
       if (jogoFinalizado) return;
+
+      if (event.key.startsWith("Arrow")) {
+        event.preventDefault();
+      }
 
       if (event.key === "ArrowUp") {
         const permitido = mudarDirecao("cima");
@@ -72,7 +76,6 @@ export default function JogoDaCobrinha() {
   useEffect(() => {
     const velocidadeCalculada = 1000 - aceleracao;
     const velocidade = Math.max(100, velocidadeCalculada);
-    console.log(velocidade);
     const intervalo = setInterval(() => {
       if (jogoFinalizado) {
         return;
@@ -115,7 +118,6 @@ export default function JogoDaCobrinha() {
     do {
       novaPosicao = Math.floor(Math.random() * 100);
     } while (cobraAtual.includes(novaPosicao));
-    console.log("nova Posicao-comida-nova", novaPosicao);
 
     return novaPosicao;
   }
@@ -123,8 +125,6 @@ export default function JogoDaCobrinha() {
   function verificarComida(posicaoNova) {
     if (posicaoNova === posicaoComida) {
       setPosicaoComida(gerarPosicaoComida([posicaoNova, ...corpoCobra]));
-      console.log("Nova posição da cabeça:", posicaoNova);
-      console.log("Posição da comida antiga:", posicaoComida);
       setPontuacao((anterior) => anterior + 10);
       if (aceleracao < 900) {
         setAceleracao((anterior) => anterior + pontuacao + 20);
@@ -137,7 +137,6 @@ export default function JogoDaCobrinha() {
 
   function moverCobra(novaCabeca) {
     const comeu = verificarComida(novaCabeca);
-    console.log("comeu?", comeu);
     const bateuNoCorpo =
       corpoCobra.includes(novaCabeca) &&
       (comeu || novaCabeca !== corpoCobra[corpoCobra.length - 1]);
@@ -147,19 +146,11 @@ export default function JogoDaCobrinha() {
       return false;
     }
 
-    console.log("nova cabeça:", novaCabeca);
-    console.log("bateu no corpo?", bateuNoCorpo);
-    console.log("calda atual:", corpoCobra[corpoCobra.length - 1]);
-    console.log("posição já ocupada?", corpoCobra.includes(novaCabeca));
-
     let novaCobra = [novaCabeca, ...corpoCobra];
-
-    console.log("Cobra antes de remover a cauda:", novaCobra);
 
     if (!comeu) {
       novaCobra = novaCobra.slice(0, -1);
     }
-    console.log("Cobra depois de remover a cauda:", novaCobra);
     setCorpoCobra(novaCobra);
     return true;
   }
@@ -190,7 +181,6 @@ export default function JogoDaCobrinha() {
     if (movimentoPermitido) {
       setPosicaoCobra(posicaoNova);
     }
-    // console.log("Posição atual:", posicaoCobra);
   }
 
   function andarCima() {
