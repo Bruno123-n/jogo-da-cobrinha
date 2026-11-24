@@ -26,6 +26,8 @@ export default function JogoDaCobrinha() {
   useEffect(() => {
     if (jogoFinalizado) return;
     function controlarTeclado(event) {
+      if (jogoFinalizado) return;
+
       if (event.key === "ArrowUp") {
         const permitido = mudarDirecao("cima");
 
@@ -221,6 +223,8 @@ export default function JogoDaCobrinha() {
   }
 
   function controlarMovimento(novaDirecao) {
+    if (jogoFinalizado) return;
+
     const permitido = mudarDirecao(novaDirecao);
 
     if (permitido) {
